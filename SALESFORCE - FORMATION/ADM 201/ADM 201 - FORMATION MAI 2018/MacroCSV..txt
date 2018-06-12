@@ -1,0 +1,59 @@
+    
+    Sub ImportCSV()
+    
+    'nb : no debug, no conditions on the file name
+    
+    Dim pathDesktop As String    ' path to destkop
+    Dim fileName As String          ' file name
+
+    ' get the path to desktop
+    pathDesktop = CreateObject("WScript.Shell").SpecialFolders("Desktop")
+    
+    ' choose the name
+    fileName = Application.InputBox("Comment appeler le fichier CSV ?", Default:="Fic", Type:=2) ' type 2 = string
+    
+    ' SAV
+    ' nb : local:=false force le separateur a etre "," et pas ";" !!
+    ThisWorkbook.SaveAs fileName:= _
+        pathDesktop & "\" & fileName & ".csv", FileFormat:=xlCSVUTF8, local:=True
+        
+    End Sub
+
+
+______________________________
+
+https://forum.excel-pratique.com/viewtopic.php?t=22295
+https://msdn.microsoft.com/fr-fr/vba/excel-vba/articles/workbook-saveas-method-excel
+
+
+
+V2 non terminée :
+    
+    Sub ImportCSV()
+    
+    'nb : no debug, no conditions on the file name
+    
+    Dim pathDesktop As String    ' path to destkop
+    Dim fileName As String          ' file name
+
+    ' get the path to desktop
+    pathDesktop = CreateObject("WScript.Shell").SpecialFolders("Desktop")
+    
+    ' choose the name
+    fileName = Application.InputBox("Comment appeler le fichier CSV ?", Default:="Fic", Type:=2) ' type 2 = string
+    
+    ' SAV
+    ' nb : local:=false force le separateur a etre "," et pas ";" !!
+    'ThisWorkbook.SaveAs fileName:= _
+        pathDesktop & "\" & fileName & ".csv", FileFormat:=xlCSVUTF8, local:=True
+        
+        Dim fileSaveName As String
+        
+        fileSaveName = Application.GetSaveAsFilename(fileName, _
+        fileFilter:="Text Files (*.csv), *.csv")
+        
+        If fileSaveName <> False Then ThisWorkbook.SaveAs fichier
+        
+    End Sub
+
+
